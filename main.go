@@ -26,6 +26,16 @@ func convertToDigits(strArr []string) []int {
 	return intArr
 }
 
+func drawTime(convertedTime []int, separator [5]string, digits [10][5]string){
+	for i:=0;i<5;i++{
+		fmt.Printf("%s %s %s %s %s %s %s %s\n",
+			digits[convertedTime[0]][i], digits[convertedTime[1]][i], separator[i],
+			digits[convertedTime[2]][i], digits[convertedTime[3]][i], separator[i],
+			digits[convertedTime[4]][i], digits[convertedTime[5]][i],
+		)
+	}
+}
+
 func main(){
 	digits := [10][5]string{
 		{
@@ -107,12 +117,27 @@ func main(){
 		" ░ ",
 		"   ",
 	}
-	converted := timeToDigits(time.Now())
-    for i:=0;i<5;i++{
-		fmt.Printf("%s %s %s %s %s %s %s %s\n",
-			digits[converted[0]][i], digits[converted[1]][i], separator[i],
-			digits[converted[2]][i], digits[converted[3]][i], separator[i],
-			digits[converted[4]][i], digits[converted[5]][i],
-		)
+	separator2 := [5]string{
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+	}
+
+	flag := true
+	for {
+		converted := timeToDigits(time.Now())
+		var sep [5]string
+		if flag {
+			sep = separator
+			flag = false
+		} else {
+			sep = separator2
+			flag = true
+		}
+		time.Sleep(time.Second)
+		drawTime(converted, sep, digits)
+		fmt.Printf("\n\n\n\n\n\n")
 	}
 }
