@@ -2,15 +2,24 @@ package main
 
 import (
 	"fmt"
+	"github.com/inancgumus/screen"
 	"strconv"
 	"strings"
 	"time"
 )
 
 func timeToDigits(currentTime time.Time) []int {
-	convertedToString := strconv.Itoa(currentTime.Hour()) + strconv.Itoa(currentTime.Minute()) + strconv.Itoa(currentTime.Second())
+	hours, minutes, seconds := strconv.Itoa(currentTime.Hour()), strconv.Itoa(currentTime.Minute()), strconv.Itoa(currentTime.Second())
+	convertedToString := checkLength(hours) + checkLength(minutes) + checkLength(seconds)
 	split := strings.Split(convertedToString, "")
 	return convertToDigits(split)
+}
+
+func checkLength(base string) string {
+	if len(base) < 2 {
+		base = "0" + base
+	}
+	return base
 }
 
 func convertToDigits(strArr []string) []int {
@@ -26,8 +35,8 @@ func convertToDigits(strArr []string) []int {
 	return intArr
 }
 
-func drawTime(convertedTime []int, separator [5]string, digits [10][5]string){
-	for i:=0;i<5;i++{
+func drawTime(convertedTime []int, separator [5]string, digits [10][5]string) {
+	for i := 0; i <= 4; i++ {
 		fmt.Printf("%s %s %s %s %s %s %s %s\n",
 			digits[convertedTime[0]][i], digits[convertedTime[1]][i], separator[i],
 			digits[convertedTime[2]][i], digits[convertedTime[3]][i], separator[i],
@@ -36,7 +45,7 @@ func drawTime(convertedTime []int, separator [5]string, digits [10][5]string){
 	}
 }
 
-func main(){
+func main() {
 	digits := [10][5]string{
 		{
 			"███",
@@ -125,8 +134,10 @@ func main(){
 		"   ",
 	}
 
+	screen.Clear()
 	flag := true
 	for {
+		screen.MoveTopLeft()
 		converted := timeToDigits(time.Now())
 		var sep [5]string
 		if flag {
@@ -138,6 +149,5 @@ func main(){
 		}
 		time.Sleep(time.Second)
 		drawTime(converted, sep, digits)
-		fmt.Printf("\n\n\n\n\n\n")
 	}
 }
