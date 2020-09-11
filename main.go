@@ -20,17 +20,19 @@ func main() {
 			sep,
 			digits[seconds/10], digits[seconds%10],
 		}
+
+		alarmed := seconds%10 == 0
+
 		for line := range clock[0] {
-			for index, digit := range clock {
+			if alarmed {
+				clock = alarm
+			}
+			for index, _ := range clock {
 				next := clock[index][line]
-				if digit == sep && seconds%2 == 0 {
-					next = "   "
-				}
 				fmt.Printf("%s  ", next)
 			}
 			fmt.Printf("\n")
 		}
 		time.Sleep(time.Second)
 	}
-
 }
