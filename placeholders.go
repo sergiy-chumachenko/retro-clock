@@ -80,9 +80,24 @@ var (
 		" ░ ",
 		"   ",
 	}
+
+	dot = placeholder{
+		"   ",
+		"   ",
+		"   ",
+		"   ",
+		" ░ ",
+	}
 	digits = [10]placeholder{zero, one, two, three, four, five, six, seven, eight, nine}
 
-	alarm = [8]placeholder{
+	alarm = [10]placeholder{
+		{
+			"   ",
+			"   ",
+			"   ",
+			"   ",
+			"   ",
+		},
 		{
 			"   ",
 			"   ",
@@ -131,6 +146,13 @@ var (
 			" █ ",
 			"   ",
 			" █ ",
+		},
+		{
+			"   ",
+			"   ",
+			"   ",
+			"   ",
+			"   ",
 		},
 		{
 			"   ",
