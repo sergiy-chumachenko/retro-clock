@@ -7,94 +7,13 @@ import (
 )
 
 func main() {
-	type separator [5]string
-	digits := [10]separator{
-		{
-			"███",
-			"█ █",
-			"█ █",
-			"█ █",
-			"███",
-		},
-		{
-			"██ ",
-			" █ ",
-			" █ ",
-			" █ ",
-			"███",
-		},
-		{
-			"███",
-			"  █",
-			"███",
-			"█  ",
-			"███",
-		},
-		{
-			"███",
-			"  █",
-			"███",
-			"  █",
-			"███",
-		},
-		{
-			"█ █",
-			"█ █",
-			"███",
-			"  █",
-			"  █",
-		},
-		{
-			"███",
-			"█  ",
-			"███",
-			"  █",
-			"███",
-		},
-		{
-			"███",
-			"█  ",
-			"███",
-			"█ █",
-			"███",
-		},
-		{
-			"███",
-			"  █",
-			"  █",
-			"  █",
-			"  █",
-		},
-		{
-			"███",
-			"█ █",
-			"███",
-			"█ █",
-			"███",
-		},
-		{
-			"███",
-			"█ █",
-			"███",
-			"  █",
-			"███",
-		},
-	}
-
-	sep := separator{
-		"   ",
-		" ░ ",
-		"   ",
-		" ░ ",
-		"   ",
-	}
 	screen.Clear()
 	for {
 		screen.MoveTopLeft()
 		currentTime := time.Now()
 		hours, minutes, seconds := currentTime.Hour(), currentTime.Minute(), currentTime.Second()
 
-		clock := [...]separator{
+		clock := [...]placeholder{
 			digits[hours/10], digits[hours%10],
 			sep,
 			digits[minutes/10], digits[minutes%10],
@@ -102,12 +21,12 @@ func main() {
 			digits[seconds/10], digits[seconds%10],
 		}
 		for line := range clock[0] {
-			for index, digit :=range clock {
+			for index, digit := range clock {
 				next := clock[index][line]
 				if digit == sep && seconds%2 == 0 {
 					next = "   "
 				}
-				fmt.Printf("%s  ",next)
+				fmt.Printf("%s  ", next)
 			}
 			fmt.Printf("\n")
 		}
